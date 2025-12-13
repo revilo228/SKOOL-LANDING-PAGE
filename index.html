@@ -14,6 +14,9 @@
     
     <script src="https://unpkg.com/lucide@latest"></script>
     
+    <script src="https://fast.wistia.com/embed/medias/r2hk3qxvw9.jsonp" async></script>
+    <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+    
     <style>
         :root {
             /* == BRAND AURA THEME == */
@@ -111,38 +114,13 @@
             margin: 1.5rem 0;
         }
 
-        .vsl-placeholder {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: var(--color-gray);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+        /* Wistia Container Styling */
+        .wistia-container {
             border: 2px solid var(--color-accent);
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .vsl-placeholder::before {
-            content: '▶';
-            font-size: 3rem;
-            color: var(--color-primary);
-            opacity: 0.8;
-            transition: all 0.3s ease;
-        }
-        
-        .vsl-placeholder:hover::before {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .vsl-placeholder p {
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--color-primary);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0, 229, 229, 0.2);
+            margin-bottom: 1.5rem;
         }
         
         /* == CROWD PROOF (TRUST ANCHOR) == */
@@ -724,10 +702,17 @@
                     <h1>Stop Guessing. Start *Achieving*.</h1>
                     <h2>How To Use The 'Billionaire's Blueprint' (Vedic + Numerology) To Build Financial Freedom, Find Your Ideal Career, and Master Your Investments.</h2>
                     
-                    <div class="vsl-placeholder" onclick="alert('Video player would go here!')">
-                        <p>Watch This 5-Min VSL (Mandatory)</p>
+                    <div class="wistia-container">
+                        <div class="wistia_responsive_padding" style="padding:56.25% 0 0 0;position:relative;">
+                            <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                                <div class="wistia_embed wistia_async_r2hk3qxvw9 videoFoam=true" style="height:100%;position:relative;width:100%">
+                                    <div class="wistia_swatch" style="height:100%;left:0;opacity:0;overflow:hidden;position:absolute;top:0;transition:opacity 200ms;width:100%;">
+                                        <img src="https://fast.wistia.com/embed/medias/r2hk3qxvw9/swatch" style="filter:blur(5px);height:100%;object-fit:contain;width:100%;" alt="" aria-hidden="true" onload="this.parentNode.style.opacity=1;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                     <div class="crowd-proof">
                         <p>Join <span class="highlight">18,000+</span> Followers Who Get It.</p>
                     </div>
