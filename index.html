@@ -8,7 +8,6 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fast.wistia.com">
-    <link rel="preload" as="image" href="https://fast.wistia.com/embed/medias/r2hk3qxvw9/swatch">
 
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -47,8 +46,8 @@
             color: var(--color-text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            /* Premium Noise Texture */
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-            padding-bottom: 80px; /* Space for sticky footer */
         }
 
         .container {
@@ -86,7 +85,7 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: none; 
+            display: none; /* Hidden on mobile by default for screen space */
         }
         
         @media (min-width: 768px) {
@@ -105,7 +104,7 @@
 
         .hero-grid {
             display: grid;
-            grid-template-columns: 1fr 400px;
+            grid-template-columns: 1fr 400px; /* Video Left, Form Right */
             gap: 3rem;
             align-items: start;
         }
@@ -125,7 +124,7 @@
             margin-bottom: 2rem;
         }
 
-        /* == VIDEO WRAPPER == */
+        /* == PERFORMANCE VIDEO WRAPPER (THE FACADE) == */
         .video-wrapper {
             position: relative;
             width: 100%;
@@ -137,7 +136,6 @@
             background: #000;
             cursor: pointer;
             margin-bottom: 1.5rem;
-            contain: content; /* Rendering Optimization */
         }
 
         .video-poster {
@@ -167,7 +165,10 @@
         }
 
         .video-wrapper:hover .play-button { transform: translate(-50%, -50%) scale(1.1); }
+        
         .play-icon { width: 0; height: 0; border-left: 20px solid white; border-top: 12px solid transparent; border-bottom: 12px solid transparent; margin-left: 5px; }
+
+        /* Actual Iframe (Injected via JS) */
         .video-iframe { width: 100%; height: 100%; position: absolute; top: 0; left: 0; border: none; }
 
         /* == CROWD PROOF == */
@@ -189,9 +190,8 @@
             border-radius: 16px;
             padding: 2rem;
             position: sticky;
-            top: 80px; 
+            top: 80px; /* Space for header */
             box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            z-index: 50; /* Ensure it sits above noise */
         }
 
         .price-display {
@@ -213,6 +213,7 @@
             font-variant-numeric: tabular-nums;
         }
 
+        /* PRIMARY CTA BUTTON (High Contrast) */
         .btn-primary {
             display: flex;
             align-items: center;
@@ -237,6 +238,7 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 51, 161, 0.6);
         }
+        
         .btn-primary:active { transform: translateY(0); }
 
         .guarantee-tiny {
@@ -247,7 +249,7 @@
             font-size: 0.8rem;
             color: #888;
             margin-top: 1rem;
-            cursor: default;
+            cursor: default; /* Fixes Dead Click Issue */
         }
 
         /* == 3. COMPARISON SECTION == */
@@ -274,6 +276,7 @@
         .comp-card li { margin-bottom: 0.8rem; color: #888; font-size: 0.95rem; position: relative; padding-left: 25px; }
         .comp-card li::before { content: '✕'; position: absolute; left: 0; color: #555; }
         
+        /* Winning Card */
         .comp-card.winner {
             background: rgba(0, 229, 229, 0.05);
             border: 1px solid var(--color-accent);
@@ -293,14 +296,14 @@
         }
         .profile-img {
             width: 100%;
-            border-radius: 20px;
+            border-radius: 20px; /* Modern Soft Square */
             border: 1px solid rgba(255,255,255,0.1);
         }
 
         /* == 5. OFFER STACK == */
         .stack-item {
             display: flex;
-            align-items: flex-start;
+            align-items: flex-start; /* Better for mobile text wrapping */
             background: var(--color-surface);
             padding: 1.5rem;
             margin-bottom: 1rem;
@@ -310,7 +313,7 @@
         .stack-icon { 
             color: var(--color-accent); 
             margin-right: 1.5rem; 
-            margin-top: 5px; 
+            margin-top: 5px; /* Visual alignment */
         }
         .value-tag {
             background: #333;
@@ -323,7 +326,7 @@
             white-space: nowrap;
         }
 
-        /* == SOCIAL POPUP (UPDATED FOR MOBILE) == */
+        /* == SOCIAL POPUP == */
         .toast-popup {
             position: fixed;
             bottom: 20px;
@@ -348,79 +351,58 @@
         .toast-content p { font-size: 0.85rem; line-height: 1.2; margin-bottom: 2px; }
         .toast-content span { font-size: 0.75rem; color: #888; }
 
-        /* == MOBILE STICKY FOOTER (NEW) == */
-        .mobile-sticky-cta {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(15, 15, 15, 0.98);
-            backdrop-filter: blur(12px);
-            padding: 12px 16px;
-            border-top: 1px solid rgba(255, 51, 161, 0.3);
-            z-index: 9999;
-            transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.6);
-            visibility: hidden; /* Hide visually and from clicks when down */
-        }
-        
-        .mobile-sticky-cta.active {
-            transform: translateY(0);
-            visibility: visible;
-        }
-
-        .mobile-sticky-info { display: flex; flex-direction: column; }
-        .mobile-sticky-price { font-weight: 800; color: #fff; font-size: 1.1rem; }
-        .mobile-sticky-label { font-size: 0.75rem; color: #aaa; }
-
-        .btn-sticky {
-            background: var(--color-primary);
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            box-shadow: 0 0 15px rgba(255, 51, 161, 0.4);
-        }
-
-        /* == MOBILE RESPONSIVENESS (CRITICAL FIXES) == */
+        /* == MOBILE RESPONSIVENESS (CRITICAL) == */
         @media (max-width: 900px) {
-            /* 1. Fix "False Bottom" - Reduce padding */
-            .hero { padding-top: 1.5rem; padding-bottom: 2rem; }
-            .hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-            
+            .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
             .hero-content { text-align: center; }
-            .hero-content h1 { font-size: 2.2rem; } /* Slightly smaller for better flow */
-            
+            .hero-content h1 { font-size: 2.5rem; }
             .order-form { position: static; margin-top: 2rem; }
-            
-            /* 2. Fix Toast covering content - Move to TOP */
-            .toast-popup {
-                bottom: auto;
-                top: 10px;
-                left: 50%;
-                transform: translateX(-50%) translateY(-150%);
-                width: 90%;
-                max-width: 400px;
-            }
-            .toast-popup.active {
-                transform: translateX(-50%) translateY(0);
-            }
-            
             .comparison-grid { grid-template-columns: 1fr; }
             .comp-card.winner { transform: scale(1); border-width: 2px; }
-            
             .story-grid { grid-template-columns: 1fr; text-align: center; }
             .profile-img { max-width: 250px; margin: 0 auto; }
-            
             .stack-item { flex-direction: column; text-align: center; }
             .stack-icon { margin: 0 0 1rem 0; }
             .value-tag { margin: 1rem auto 0 auto; }
+        }
+
+        /* == TESTIMONIAL WALL OF LOVE (CSS ADDED HERE) == */
+        .wall-of-love {
+            padding: 5rem 0;
+            background: #0f0f0f;
+        }
+
+        .wall-grid {
+            column-count: 3; /* 3 Columns on desktop */
+            column-gap: 1.5rem;
+        }
+
+        .wall-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .wall-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-primary);
+        }
+
+        .wall-item img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Responsiveness for Wall */
+        @media (max-width: 900px) {
+            .wall-grid { column-count: 2; }
+        }
+        @media (max-width: 600px) {
+            .wall-grid { column-count: 1; }
         }
     </style>
 </head>
@@ -461,7 +443,7 @@
                     <span id="countdown">23:59:59</span>
                 </div>
 
-                <a href="https://buy.stripe.com/4gMeVfa904GAcTE4zUasg01" class="btn-primary">
+                <a href="https://buy.stripe.com/4gMeVfa904GAcTE4zUasg01" class="btn-primary" target="_blank">
                     Get Instant Access
                     <i data-lucide="arrow-right" style="margin-left: 10px;" width="20"></i>
                 </a>
@@ -516,6 +498,46 @@
         </div>
     </section>
 
+    <section class="wall-of-love">
+        <div class="container">
+            <h2 class="section-title text-center gradient-text" style="margin-bottom: 3rem;">
+                Results. Not "Vibes".
+            </h2>
+            
+            <div class="wall-grid">
+                
+                <div class="wall-item">
+                    <img src="https://i.postimg.cc/g0sdr1k5/IMG-9986.jpg" alt="Client Result 1">
+                </div>
+    
+                <div class="wall-item">
+                    <img src="https://i.postimg.cc/ZqHZ0XKQ/IMG-9987.jpg" alt="Client Result 2">
+                </div>
+    
+                <div class="wall-item">
+                    <img src="https://i.postimg.cc/XvL3Xt7m/IMG-9988.jpg" alt="Client Result 3">
+                </div>
+    
+                <div class="wall-item">
+                    <img src="https://i.postimg.cc/5tg1jDNZ/IMG-9990.jpg" alt="Client Result 4">
+                </div>
+    
+                <div class="wall-item">
+                    <img src="https://i.postimg.cc/FRKvSG7G/IMG-9991.jpg" alt="Client Result 5">
+                </div>
+    
+                <div class="wall-item">
+                    <img src="https://i.postimg.cc/bJvPnLs3/IMG-9992.jpg" alt="Client Result 6">
+                </div>
+    
+                 <div class="wall-item">
+                    <img src="https://i.postimg.cc/qBPRfVtt/IMG-9954.jpg" alt="Client Result 7">
+                </div>
+    
+            </div>
+        </div>
+    </section>
+
     <section class="section-std" style="background: rgba(255,255,255,0.02);">
         <div class="container story-grid">
             <div class="story-img-wrapper">
@@ -523,14 +545,8 @@
             </div>
             <div class="story-content">
                 <h3 class="gradient-text" style="font-size: 2rem; margin-bottom: 1rem;">I Hacked The System.</h3>
-                <div style="font-size: 1.1rem; line-height: 1.7; color: #b0b0b0;">
-                    <p style="margin-bottom: 24px;">
-                        I was a university dropout in London, <strong style="color: #fff;">set up to fail</strong>. Nobody expected anything from me—except myself. While my friends settled for safe corporate jobs, I dissected the 1%.
-                    </p>
-                    <p style="margin-bottom: 0;">
-                        I found they don't rely on luck; they leverage <strong style="color: #fff;">timing and superpowers</strong>. This system built my business. Now, I’m handing you the <strong style="color: #fff;">blueprint</strong>.
-                    </p>
-                </div>
+                <p style="margin-bottom: 1rem; color: #ccc;">I was a university dropout in London. The "system" wrote me off. While my friends took safe corporate jobs, I reverse-engineered the habits of the ultra-wealthy.</p>
+                <p style="color: #ccc;">I found that the top 1% don't rely on luck. They rely on <strong>timing</strong>. I used this exact system to build my business and audience. Now, I'm handing you the map.</p>
             </div>
         </div>
     </section>
@@ -545,7 +561,7 @@
                     <h3 style="font-size:1.2rem; font-weight:700; color:#fff;">The "Billionaire's Blueprint" Course</h3>
                     <p style="font-size:0.95rem; color:#aaa;">The core video curriculum (Vedic + Numerology).</p>
                 </div>
-                <div class="value-tag">Value: $497</div>
+                <div class="value-tag">Value: £497</div>
             </div>
 
             <div class="stack-item">
@@ -554,7 +570,7 @@
                     <h3 style="font-size:1.2rem; font-weight:700; color:#fff;">Private Community</h3>
                     <p style="font-size:0.95rem; color:#aaa;">Network with other high-performers.</p>
                 </div>
-                <div class="value-tag">Value: $97/mo</div>
+                <div class="value-tag">Value: £97/mo</div>
             </div>
 
             <div class="stack-item">
@@ -563,27 +579,17 @@
                     <h3 style="font-size:1.2rem; font-weight:700; color:#fff;">Weekly Live Q&A</h3>
                     <p style="font-size:0.95rem; color:#aaa;">Direct access to me to ask questions.</p>
                 </div>
-                <div class="value-tag">Value: $497/mo</div>
+                <div class="value-tag">Value: £497/mo</div>
             </div>
 
             <div class="text-center" style="margin-top: 3rem;">
-                <p style="font-size: 1.5rem; margin-bottom: 1rem;">Total Value: <span style="text-decoration: line-through; color: #666;">$1,000+</span></p>
+                <p style="font-size: 1.5rem; margin-bottom: 1rem;">Total Value: <span style="text-decoration: line-through; color: #666;">£1,000+</span></p>
                 <a href="https://buy.stripe.com/test_aFa00lcmO1RHdJ7ftR2sM05" class="btn-primary" style="max-width: 400px; margin: 0 auto;">
                     Join Now For $28
                 </a>
             </div>
         </div>
     </section>
-
-    <div class="mobile-sticky-cta" id="sticky-cta">
-        <div class="mobile-sticky-info">
-            <span class="mobile-sticky-label">Charter Rate</span>
-            <span class="mobile-sticky-price">$28 <span style="font-size:0.8em; text-decoration:line-through; color:#666;">$200</span></span>
-        </div>
-        <a href="https://buy.stripe.com/4gMeVfa904GAcTE4zUasg01" class="btn-sticky">
-            Join Now
-        </a>
-    </div>
 
     <div class="toast-popup" id="toast">
         <div class="toast-icon"><i data-lucide="bell-ring"></i></div>
@@ -600,6 +606,7 @@
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             } else {
+                // Fallback if script loads late
                 window.onload = function() { lucide.createIcons(); };
             }
 
@@ -607,17 +614,20 @@
             const videoTrigger = document.getElementById('video-trigger');
             if(videoTrigger) {
                 videoTrigger.addEventListener('click', function() {
+                    // Create Iframe on the fly
                     const iframe = document.createElement('iframe');
                     iframe.src = "https://fast.wistia.net/embed/iframe/r2hk3qxvw9?videoFoam=true&autoPlay=true";
                     iframe.title = "Wistia Video Player";
                     iframe.allow = "autoplay; fullscreen";
                     iframe.className = "video-iframe";
                     
+                    // Add external Wistia script only when needed
                     const script = document.createElement('script');
                     script.src = "https://fast.wistia.com/assets/external/E-v1.js";
                     script.async = true;
                     document.body.appendChild(script);
 
+                    // clear content and append iframe
                     this.innerHTML = ''; 
                     this.appendChild(iframe);
                 });
@@ -625,7 +635,7 @@
 
             // 3. Countdown Timer (24h loop)
             const display = document.getElementById('countdown');
-            let timer = 86399; 
+            let timer = 86399; // 23:59:59
             
             const tick = () => {
                 let h = Math.floor(timer / 3600);
@@ -641,7 +651,7 @@
             };
             setInterval(tick, 1000);
 
-            // 4. Social Proof Popup (Optimized logic)
+            // 4. Social Proof Popup
             const toast = document.getElementById('toast');
             const toastMsg = document.getElementById('toast-msg');
             const names = [
@@ -662,30 +672,9 @@
                 }, 4000);
             };
 
+            // First show after 5s, then every 15s
             setTimeout(showToast, 5000);
             setInterval(showToast, 15000);
-
-            // 5. === LOGIC: Sticky Footer Trigger ===
-            const mainBtn = document.querySelector('.order-form .btn-primary');
-            const stickyBar = document.getElementById('sticky-cta');
-
-            if(mainBtn && stickyBar) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        // If main button is NOT visible (scrolled past), SHOW sticky bar
-                        if (!entry.isIntersecting) {
-                            stickyBar.classList.add('active');
-                        } else {
-                            stickyBar.classList.remove('active');
-                        }
-                    });
-                }, {
-                    threshold: 0, 
-                    rootMargin: "0px 0px -20px 0px"
-                });
-
-                observer.observe(mainBtn);
-            }
         });
     </script>
 </body>
